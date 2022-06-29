@@ -1,11 +1,5 @@
 import LogicGates
 
-def twos_complement(a):
-    temp = ''
-    for i in range(32):
-        temp += str(LogicGates.Not(int(a[i])))
-    temp = adder.adder_32_bit(temp, '00000000000000000000000000000001', 0)[0]
-    return temp
 
 def adder(a, b, carry_in):
     sum = LogicGates.Xor(LogicGates.Xor(a, b), carry_in)
@@ -20,4 +14,4 @@ def adder_subtractor_32_bit(a, b, subtract=0):
         result = str(sum) + result
     return (result, carry_out)
 
-# print(adder_subtractor_32_bit('00000000000000000000000000000000', '00000000000000000000000000000001', 0))
+# print(adder_subtractor_32_bit('00000000000000000000000000000000', '00000000000000000000000000000000', 1))

@@ -1,20 +1,33 @@
 import adder
 import mux
 import shiftlogical
+import LogicGates
+import comparator
+
 
 def alu(a, b, selector):
+
+    And = ''
+    for i in range(32):
+        And += str(LogicGates.And(a[i], b[i]))
+    Or = ''
+    for i in range(32):
+        Or += str(LogicGates.Or(a[i], b[i]))
     sum = adder.adder_subtractor_32_bit(a, b)[0]
     subtract = adder.adder_subtractor_32_bit(a, b, 1)[0]
+    set_less_then = 31*'0'+str(comparator.comparator_32_bit_signed(a, b)[0])
+    set_less_then_unsigned = 31*'0'+str(comparator.comparator_32_bit_unsigned(a, b)[0])
     shift_right = shiftlogical.shift(a, b)
     shift_left = shiftlogical.shift(a, b, 0)
-    And = None
-    Or = None
-    # compare
-    # less then
+    nor = ''
+    for i in range(32):
+        nor += str(LogicGates.Not(Or[i]))
 
     result = ''
     for i in range(32):
-        result += str(mux.mux_4x1(int(sum[i]), int(subtract[i]), int(shift_right[i]), int(shift_left[i]), selector))
+        result += str(mux.mux_16x1(int(And[i]), int(Or[i]), int(sum[i]), int(subtract[i])
+                                , int(set_less_then[i]), int(set_less_then_unsigned[i]), int(shift_right[i]), int(shift_left[i])
+                                , int(nor[i]), 0, 0, 0, 0, 0, 0, 0, selector))
     return result
 
 # print(alu('10000000000000000000000000000000', '00000000000000000000000000000001', '10'))
