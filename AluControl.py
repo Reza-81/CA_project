@@ -1,3 +1,7 @@
+import LogicGates
+import mux
+
+
 def alu_control(funct_code, alu_op):
     # and -> 0000
     # or -> 0001
@@ -50,4 +54,56 @@ def alu_control(funct_code, alu_op):
         # 000000 -> shift_left_logical
         # 000010 -> shift_right_logical
         # 001000 -> jump_register -> lazem nist bere to alu -> kodesh ham 1001
-    pass
+    # ----------------------------------------------------------
+    # 111000 -> 0010
+    # 111010 -> 0000
+    # 111001 -> xxxx
+    # 111011 -> 0001
+    # 100000 -> 0010
+    # 100001 -> 0010
+    # 100100 -> 0000
+    # 100111 -> 1000
+    # 100101 -> 0001
+    # 101010 -> 0100
+    # 101011 -> 0101
+    # 100010 -> 0011
+    # 000000 -> 0111
+    # 000010 -> 0110
+    # 001000 -> 1001
+    selector = str(LogicGates.And(int(alu_op[0]), int(alu_op[1]), LogicGates.Not(int(alu_op[2]))))
+    signal_1 = '111'+alu_op
+    signal_2 = funct_code
+    signal = ''
+    for i in range(6):
+        signal = signal + str(mux.mux_2x1(int(signal_1[i]), int(signal_2[i]), selector))
+    
+    result_bit_3 = LogicGates.Or(LogicGates.And(LogicGates.Not(int(signal[0])), LogicGates.Not(int(signal[1]))
+                                              , int(signal[2]), LogicGates.Not(int(signal[3])), LogicGates.Not(int(signal[4]))
+                                              , LogicGates.Not(int(signal[5])))
+                                , LogicGates.And(int(signal[0]), LogicGates.Not(int(signal[1]))
+                                               , LogicGates.Not(int(signal[2])), int(signal[3]), int(signal[4]), int(signal[5])))
+    
+    result_bit_2 = LogicGates.Or(LogicGates.Not(LogicGates.Or(int(signal[0]), int(signal[1]), int(signal[2])
+                                                            , int(signal[3]), int(signal[5])))
+                               , LogicGates.And(int(signal[0]), LogicGates.Not(int(signal[1])), int(signal[2])
+                                              , LogicGates.Not(int(signal[3])), int(signal[4])))
+
+    result_bit_1 = LogicGates.Or(LogicGates.Not(LogicGates.Or(int(signal[1]), int(signal[2]), int(signal[3]), int(signal[5])))
+                               , LogicGates.Not(LogicGates.Or(LogicGates.Not(int(signal[0])), int(signal[1])
+                                                            , int(signal[2]), int(signal[3]), int(signal[4])))
+                               , LogicGates.And(int(signal[0]), int(signal[1]), int(signal[2])
+                                              , LogicGates.Not(int(signal[3])), LogicGates.Not(int(signal[4]))
+                                              , LogicGates.Not(int(signal[5]))))
+    
+    result_bit_0 = LogicGates.Or(LogicGates.Not(LogicGates.Or(int(signal[0]), int(signal[1]), int(signal[3])
+                                                            , int(signal[4]), int(signal[5])))
+                              , LogicGates.And(int(signal[0]), int(signal[2]), LogicGates.Not(int(signal[3]))
+                                             , int(signal[4]), int(signal[5]))
+                              , LogicGates.And(int(signal[0]), LogicGates.Not(int(signal[1])), LogicGates.Not(int(signal[2]))
+                                             , LogicGates.Not(int(signal[3])), int(signal[4]), LogicGates.Not(int(signal[5])))
+                              , LogicGates.And(int(signal[0]), LogicGates.Not(int(signal[1])), LogicGates.Not(int(signal[2]))
+                                             , int(signal[3]), LogicGates.Not(int(signal[4])), int(signal[5])))
+
+    return f'{result_bit_3}{result_bit_2}{result_bit_1}{result_bit_0}'
+
+# print(alu_control('100100', '000'))
