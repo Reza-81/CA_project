@@ -1,7 +1,7 @@
 class Register():
     def __init__(self, register_number):
         self.__register_number = register_number
-        self.__value = 0
+        self.__value = 32*'0'
 
     def write_data(self, data):
         self.__value = data
@@ -16,7 +16,7 @@ class Register():
 class RegisterFile():
     __register_list = []
     for i in range(32):
-        Register.__register_list.append(Register(i))
+        __register_list.append(Register(i))
     
     @classmethod
     def write_data(cls, data, register_number):
@@ -29,3 +29,7 @@ class RegisterFile():
         for register in RegisterFile.__register_list:
             if register.number() == register_number:
                 return register.read_data()
+    
+    @classmethod
+    def registers(cls):
+        return RegisterFile.__register_list
