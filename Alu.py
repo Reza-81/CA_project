@@ -13,7 +13,7 @@ def alu(a, b, selector):
     Or = ''
     for i in range(32):
         Or += str(LogicGates.Or(a[i], b[i]))
-    sum = adder.adder_subtractor_32_bit(a, b)[0]
+    add = adder.adder_subtractor_32_bit(a, b)[0]
     subtract = adder.adder_subtractor_32_bit(a, b, 1)[0]
     set_less_then = 31*'0'+str(comparator.comparator_32_bit_signed(a, b)[0])
     set_less_then_unsigned = 31*'0'+str(comparator.comparator_32_bit_unsigned(a, b)[0])
@@ -25,9 +25,11 @@ def alu(a, b, selector):
 
     result = ''
     for i in range(32):
-        result += str(mux.mux_16x1(int(And[i]), int(Or[i]), int(sum[i]), int(subtract[i])
+        result += str(mux.mux_16x1(int(And[i]), int(Or[i]), int(add[i]), int(subtract[i])
                                 , int(set_less_then[i]), int(set_less_then_unsigned[i]), int(shift_right[i]), int(shift_left[i])
                                 , int(nor[i]), 0, 0, 0, 0, 0, 0, 0, selector))
-    return result
 
-# print(alu('10000000000000000000000000000000', '00000000000000000000000000000001', '10'))
+    zero = LogicGates.Not(LogicGates.Or(*(map(int, subtract))))
+    return (result, zero)
+
+# print(alu('10000000000000000000000000000001', '10000000000000000000000000000001', '0010'))
