@@ -1,12 +1,12 @@
 import LogicGates
 
 
-def adder(a, b, carry_in):
+def adder(a : int, b : int, carry_in : int) -> tuple[int, int]:
     sum = LogicGates.Xor(LogicGates.Xor(a, b), carry_in)
     carry_out = LogicGates.Or(LogicGates.And(carry_in, LogicGates.Xor(a, b)), LogicGates.And(a, b))
     return (sum, carry_out)
 
-def adder_subtractor_32_bit(a, b, subtract=0):
+def adder_subtractor_32_bit(a : str, b : str, subtract : int = 0) -> tuple[int, int]:
     result = ''
     carry_out = subtract
     for i in range(31, -1, -1):

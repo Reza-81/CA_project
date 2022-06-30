@@ -1,6 +1,6 @@
 import Dlatch
 
-def shift(a, b, right=1):
+def shift(a : str, b : str, right : int = 1) -> str:
     b = int(b, 2)
     if b > 32:
         b = 32

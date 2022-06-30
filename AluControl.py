@@ -2,7 +2,7 @@ import LogicGates
 import mux
 
 
-def alu_control(funct_code, alu_op):
+def alu_control(funct_code : str, alu_op : str) -> str:
     # and -> 0000
     # or -> 0001
     # add -> 0010
@@ -70,7 +70,7 @@ def alu_control(funct_code, alu_op):
     # 000000 -> 0111
     # 000010 -> 0110
     # 001000 -> 1001
-    selector = str(LogicGates.And(int(alu_op[0]), int(alu_op[1]), LogicGates.Not(int(alu_op[2]))))
+    selector = LogicGates.And(int(alu_op[0]), int(alu_op[1]), LogicGates.Not(int(alu_op[2])))
     signal_1 = '111'+alu_op
     signal_2 = funct_code
     signal = ''

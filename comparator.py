@@ -2,14 +2,14 @@ import LogicGates
 import adder
 import mux
 
-def twos_complement(a):
+def twos_complement(a : str) -> str:
     temp = ''
     for i in range(32):
         temp += str(LogicGates.Not(int(a[i])))
     temp = adder.adder_subtractor_32_bit(temp, '00000000000000000000000000000001')[0]
     return temp
 
-def comparator_1_bit_unsigned(a, b):
+def comparator_1_bit_unsigned(a : int, b : int) -> tuple[int, int, int]:
     a_less_than_b = LogicGates.And(b, LogicGates.Not(a))
     a_greater_than_b = LogicGates.And(a, LogicGates.Not(b))
     a_equal_b = LogicGates.Or(LogicGates.And(LogicGates.Not(a),LogicGates.Not(b))
@@ -17,56 +17,56 @@ def comparator_1_bit_unsigned(a, b):
     return (a_less_than_b, a_greater_than_b, a_equal_b)
 
 
-def comparator_2_bit_unsigned(a, b):
-    compare_bit_0 = comparator_1_bit_unsigned(int(a[0]), int(b[0]))
-    compare_bit_1 = comparator_1_bit_unsigned(int(a[1]), int(b[1]))
+def comparator_2_bit_unsigned(a : str, b : str) -> tuple[int, int, int]:
+    compare_1 = comparator_1_bit_unsigned(int(a[0]), int(b[0]))
+    compare_2 = comparator_1_bit_unsigned(int(a[1]), int(b[1]))
     
-    a_less_than_b = mux.mux_2x1(compare_bit_0[0], compare_bit_1[0], compare_bit_0[2])
-    a_greater_than_b = mux.mux_2x1(compare_bit_0[1], compare_bit_1[1], compare_bit_0[2])
-    a_equal_b = LogicGates.And(compare_bit_0[2], compare_bit_1[2])
+    a_less_than_b = mux.mux_2x1(compare_1[0], compare_2[0], compare_1[2])
+    a_greater_than_b = mux.mux_2x1(compare_1[1], compare_2[1], compare_1[2])
+    a_equal_b = LogicGates.And(compare_1[2], compare_2[2])
     return (a_less_than_b, a_greater_than_b, a_equal_b)
 
 
-def comparator_4_bit_unsigned(a, b):
-    compare_bit_0 = comparator_2_bit_unsigned(a[:2], b[:2])
-    compare_bit_1 = comparator_2_bit_unsigned(a[2:], b[2:])
+def comparator_4_bit_unsigned(a : str, b : str) -> tuple[int, int, int]:
+    compare_1 = comparator_2_bit_unsigned(a[:2], b[:2])
+    compare_2 = comparator_2_bit_unsigned(a[2:], b[2:])
     
-    a_less_than_b = mux.mux_2x1(compare_bit_0[0], compare_bit_1[0], compare_bit_0[2])
-    a_greater_than_b = mux.mux_2x1(compare_bit_0[1], compare_bit_1[1], compare_bit_0[2])
-    a_equal_b = LogicGates.And(compare_bit_0[2], compare_bit_1[2])
+    a_less_than_b = mux.mux_2x1(compare_1[0], compare_2[0], compare_1[2])
+    a_greater_than_b = mux.mux_2x1(compare_1[1], compare_2[1], compare_1[2])
+    a_equal_b = LogicGates.And(compare_1[2], compare_2[2])
     return (a_less_than_b, a_greater_than_b, a_equal_b)
 
 
-def comparator_8_bit_unsigned(a, b):
-    compare_bit_0 = comparator_4_bit_unsigned(a[:4], b[:4])
-    compare_bit_1 = comparator_4_bit_unsigned(a[4:], b[4:])
+def comparator_8_bit_unsigned(a : str, b : str) -> tuple[int, int, int]:
+    compare_1 = comparator_4_bit_unsigned(a[:4], b[:4])
+    compare_2 = comparator_4_bit_unsigned(a[4:], b[4:])
     
-    a_less_than_b = mux.mux_2x1(compare_bit_0[0], compare_bit_1[0], compare_bit_0[2])
-    a_greater_than_b = mux.mux_2x1(compare_bit_0[1], compare_bit_1[1], compare_bit_0[2])
-    a_equal_b = LogicGates.And(compare_bit_0[2], compare_bit_1[2])
+    a_less_than_b = mux.mux_2x1(compare_1[0], compare_2[0], compare_1[2])
+    a_greater_than_b = mux.mux_2x1(compare_1[1], compare_2[1], compare_1[2])
+    a_equal_b = LogicGates.And(compare_1[2], compare_2[2])
     return (a_less_than_b, a_greater_than_b, a_equal_b)
 
 
-def comparator_16_bit_unsigned(a, b):
-    compare_bit_0 = comparator_8_bit_unsigned(a[:8], b[:8])
-    compare_bit_1 = comparator_8_bit_unsigned(a[8:], b[8:])
+def comparator_16_bit_unsigned(a : str, b : str) -> tuple[int, int, int]:
+    compare_1 = comparator_8_bit_unsigned(a[:8], b[:8])
+    compare_2 = comparator_8_bit_unsigned(a[8:], b[8:])
     
-    a_less_than_b = mux.mux_2x1(compare_bit_0[0], compare_bit_1[0], compare_bit_0[2])
-    a_greater_than_b = mux.mux_2x1(compare_bit_0[1], compare_bit_1[1], compare_bit_0[2])
-    a_equal_b = LogicGates.And(compare_bit_0[2], compare_bit_1[2])
+    a_less_than_b = mux.mux_2x1(compare_1[0], compare_2[0], compare_1[2])
+    a_greater_than_b = mux.mux_2x1(compare_1[1], compare_2[1], compare_1[2])
+    a_equal_b = LogicGates.And(compare_1[2], compare_2[2])
     return (a_less_than_b, a_greater_than_b, a_equal_b)
 
 
-def comparator_32_bit_unsigned(a, b):
-    compare_bit_0 = comparator_16_bit_unsigned(a[:16], b[:16])
-    compare_bit_1 = comparator_16_bit_unsigned(a[16:], b[16:])
+def comparator_32_bit_unsigned(a : str, b : str) -> tuple[int, int, int]:
+    compare_1 = comparator_16_bit_unsigned(a[:16], b[:16])
+    compare_2 = comparator_16_bit_unsigned(a[16:], b[16:])
 
-    a_less_than_b = mux.mux_2x1(compare_bit_0[0], compare_bit_1[0], compare_bit_0[2])
-    a_greater_than_b = mux.mux_2x1(compare_bit_0[1], compare_bit_1[1], compare_bit_0[2])
-    a_equal_b = LogicGates.And(compare_bit_0[2], compare_bit_1[2])
+    a_less_than_b = mux.mux_2x1(compare_1[0], compare_2[0], compare_1[2])
+    a_greater_than_b = mux.mux_2x1(compare_1[1], compare_2[1], compare_1[2])
+    a_equal_b = LogicGates.And(compare_1[2], compare_2[2])
     return (a_less_than_b, a_greater_than_b, a_equal_b)
 
-def comparator_32_bit_signed(a, b):
+def comparator_32_bit_signed(a : str, b : str) -> tuple[int, int, int]:
     result_1 = comparator_32_bit_unsigned('0'+a[1:], '0'+b[1:])
     result_2 = (int(a[0]), int(b[0]), 0)
     result_3 = [None, None, None]
