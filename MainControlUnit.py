@@ -7,9 +7,13 @@ def control_unit(opcode : str) -> dict[int, int, int, int, str, int, str, int, s
     jump = LogicGates.And(LogicGates.Not(int(opcode[0])), LogicGates.Not(int(opcode[1]))
                         , LogicGates.Not(int(opcode[2])), LogicGates.Not(int(opcode[3])), int(opcode[4]))
     
-    branch = LogicGates.And(LogicGates.Not(int(opcode[0])), LogicGates.Not(int(opcode[1]))
+    branch_equal = LogicGates.And(LogicGates.Not(int(opcode[0])), LogicGates.Not(int(opcode[1]))
                           , LogicGates.Not(int(opcode[2])), int(opcode[3]), LogicGates.Not(int(opcode[4]))
                           , LogicGates.Not(int(opcode[5])))
+
+    branch_not_euqal = LogicGates.And(LogicGates.Not(int(opcode[0])), LogicGates.Not(int(opcode[1]))
+                          , LogicGates.Not(int(opcode[2])), int(opcode[3]), LogicGates.Not(int(opcode[4]))
+                          , int(opcode[5]))
 
     mem_read = LogicGates.Or(LogicGates.And(int(opcode[0]), LogicGates.Not(int(opcode[1]))
                                           , LogicGates.Not(int(opcode[2])), LogicGates.Not(int(opcode[4])))
@@ -84,16 +88,43 @@ def control_unit(opcode : str) -> dict[int, int, int, int, str, int, str, int, s
     jump_and_link = LogicGates.And(LogicGates.Not(int(opcode[0])), LogicGates.Not(int(opcode[1]))
                                  , LogicGates.Not(int(opcode[2])), LogicGates.Not(int(opcode[3]))
                                  , int(opcode[4]), int(opcode[5]))
+    
+    load_half = LogicGates.And(int(opcode[0]), LogicGates.Not(int(opcode[1])), LogicGates.Not(int(opcode[2]))
+                             , LogicGates.Not(int(opcode[3])), LogicGates.Not(int(opcode[4])), int(opcode[5]))
+
+    load_half_unsigned = LogicGates.And(int(opcode[0]), LogicGates.Not(int(opcode[1])), LogicGates.Not(int(opcode[2]))
+                                      , int(opcode[3]), LogicGates.Not(int(opcode[4])), int(opcode[5]))
+
+    load_byte = LogicGates.And(int(opcode[0]), LogicGates.Not(int(opcode[1])), LogicGates.Not(int(opcode[2]))
+                             , LogicGates.Not(int(opcode[3])), LogicGates.Not(int(opcode[4]))
+                             , LogicGates.Not(int(opcode[5])))
+
+    load_byte_unsigned = LogicGates.And(int(opcode[0]), LogicGates.Not(int(opcode[1])), LogicGates.Not(int(opcode[2]))
+                             , int(opcode[3]), LogicGates.Not(int(opcode[4])), LogicGates.Not(int(opcode[5])))
+
+    store_half = LogicGates.And(int(opcode[0]), LogicGates.Not(int(opcode[1])), int(opcode[2])
+                              , LogicGates.Not(int(opcode[3])), LogicGates.Not(int(opcode[4])), int(opcode[5]))
+
+    store_byte = LogicGates.And(int(opcode[0]), LogicGates.Not(int(opcode[1])), int(opcode[2])
+                              , LogicGates.Not(int(opcode[3])), LogicGates.Not(int(opcode[4]))
+                              , LogicGates.Not(int(opcode[5])))
 
     return {'reg_dst': reg_dst
           , 'jump': jump
-          , 'branch': branch
+          , 'branch_equal': branch_equal
+          , 'branch_not_euqal': branch_not_euqal
           , 'mem_read': mem_read
           , 'mem_to_reg': str(mem_to_reg_bit_1) + str(mem_to_reg_bit_0)
           , 'mem_write': mem_write
           , 'alu_src': str(alu_src_bit_1) + str(alu_src_bit_0)
           , 'reg_write': reg_write
           , 'alu_op': str(alu_op_bit_2) + str(alu_op_bit_1) + str(alu_op_bit_0)
-          , 'jump_and_link': jump_and_link}
+          , 'jump_and_link': jump_and_link
+          , 'load_half': load_half
+          , 'load_half_unsigned': load_half_unsigned
+          , 'load_byte': load_byte
+          , 'load_byte_unsigned': load_byte_unsigned
+          , 'store_half': store_half
+          , 'store_byte': store_byte}
 
-# print(control_unit('000011'))
+# print(control_unit('100100'))

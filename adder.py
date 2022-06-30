@@ -6,7 +6,7 @@ def adder(a : int, b : int, carry_in : int) -> tuple[int, int]:
     carry_out = LogicGates.Or(LogicGates.And(carry_in, LogicGates.Xor(a, b)), LogicGates.And(a, b))
     return (sum, carry_out)
 
-def adder_subtractor_32_bit(a : str, b : str, subtract : int = 0) -> tuple[int, int]:
+def adder_subtractor_32_bit(a : str, b : str, subtract : int = 0) -> tuple[str, int]:
     result = ''
     carry_out = subtract
     for i in range(31, -1, -1):

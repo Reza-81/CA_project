@@ -42,6 +42,7 @@ def alu_control(funct_code : str, alu_op : str) -> str:
         # 010 -> and                                           ===> mishe avale ina ye 111 ezafe kard
         # 001 -> compare_equal -> subtract (bit Zero)
         # 011 -> or
+        # 101 -> set_less_than
     # alu_op:(110 bashe)
         # 100000 -> add
         # 100001 -> add
@@ -59,6 +60,7 @@ def alu_control(funct_code : str, alu_op : str) -> str:
     # 111010 -> 0000
     # 111001 -> xxxx
     # 111011 -> 0001
+    # 111101 -> 0100
     # 100000 -> 0010
     # 100001 -> 0010
     # 100100 -> 0000
@@ -86,7 +88,9 @@ def alu_control(funct_code : str, alu_op : str) -> str:
     result_bit_2 = LogicGates.Or(LogicGates.Not(LogicGates.Or(int(signal[0]), int(signal[1]), int(signal[2])
                                                             , int(signal[3]), int(signal[5])))
                                , LogicGates.And(int(signal[0]), LogicGates.Not(int(signal[1])), int(signal[2])
-                                              , LogicGates.Not(int(signal[3])), int(signal[4])))
+                                              , LogicGates.Not(int(signal[3])), int(signal[4]))
+                               , LogicGates.And(int(signal[0]), int(signal[1]), int(signal[2]), int(signal[3])
+                                              , LogicGates.Not(int(signal[4])), int(signal[5])))
 
     result_bit_1 = LogicGates.Or(LogicGates.Not(LogicGates.Or(int(signal[1]), int(signal[2]), int(signal[3]), int(signal[5])))
                                , LogicGates.Not(LogicGates.Or(LogicGates.Not(int(signal[0])), int(signal[1])
@@ -106,4 +110,4 @@ def alu_control(funct_code : str, alu_op : str) -> str:
 
     return f'{result_bit_3}{result_bit_2}{result_bit_1}{result_bit_0}'
 
-# print(alu_control('100100', '000'))
+# print(alu_control('100000', '101'))
