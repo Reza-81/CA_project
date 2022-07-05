@@ -39,6 +39,14 @@ while(True):
     sign_extended_immediate = Extended.sign_extended_16_32(instruction[16:])
 
     # alu
+    signal_for_read_data_1 = LogicGates.Or(LogicGates.And(LogicGates.Not(alu_control_signals[0]), alu_control_signals[1]
+                                                        , alu_control_signals[2], LogicGates.Not(alu_control_signals[1]))
+                                         , LogicGates.And(LogicGates.Not(alu_control_signals[0]), alu_control_signals[1]
+                                                        , alu_control_signals[2], alu_control_signals[1]))
+    read_data_1 = ''
+    shamt = Extended.sign_extended_16_32(instruction[21:28])
+    for i in range(32):
+        read_data_1 += str(mux.mux_2x1(int(register_1[i]), int(shamt[i]), signal_for_read_data_1))
     read_data_2 = ''
     for i in range(32):
         read_data_2 += str(mux.mux_2x1(int(register_2[i]), int(sign_extended_immediate[i]), int(control_unit_signals['alu_src'][1])))
