@@ -1,0 +1,54 @@
+{
+    "lw": {"type": "i", "opcode": "100011"}
+    ,"sw": {"type": "i", "opcode": "101011"}
+    ,"beq": {"type": "i", "opcode": "000100"}
+    ,"bne": {"type": "i", "opcode": "000101"}
+    ,"blez": {"type": "i", "opcode": "000111"}
+    ,"bltz": {"type": "i", "opcode": "000001"}
+    ,"bgtz": {"type": "i", "opcode": "000110"}
+    ,"addi": {"type": "i", "opcode": "001000"}
+    ,"addiu": {"type": "i", "opcode": "001001"}
+    ,"j": {"type": "j", "opcode": "000010"}
+    ,"jal": {"type": "j", "opcode": "000011"}
+    ,"andi": {"type": "i", "opcode": "001100"}
+    ,"ori": {"type": "i", "opcode": "001101"}
+    ,"xori": {"type": "i", "opcode": "001110"}
+    ,"slti": {"type": "i", "opcode": "001010"}
+    ,"sltiu": {"type": "i", "opcode": "001011"}
+    ,"lui": {"type": "i", "opcode": "001111"}
+    ,"lb": {"type": "i", "opcode": "100000"}
+    ,"lbu": {"type": "i", "opcode": "100100"}
+    ,"lh": {"type": "i", "opcode": "100001"}
+    ,"lhu": {"type": "i", "opcode": "100101"}
+    ,"sb": {"type": "i", "opcode": "101000"}
+    ,"sh": {"type": "i", "opcode": "101001"}
+    ,"hlt": {"type": "i", "opcode": "111100"}
+    ,"add": {"type": "r", "opcode": "000000", "funct": "100000"}
+    ,"addu": {"type": "r", "opcode": "000000", "funct": "100001"}
+    ,"and": {"type": "r", "opcode": "000000", "funct": "100100"}
+    ,"nor": {"type": "r", "opcode": "000000", "funct": "100111"}
+    ,"or": {"type": "r", "opcode": "000000", "funct": "100101"}
+    ,"slt": {"type": "r", "opcode": "000000", "funct": "101010"}
+    ,"sltu": {"type": "r", "opcode": "000000", "funct": "101011"}
+    ,"sub": {"type": "r", "opcode": "000000", "funct": "100010"}
+    ,"subu": {"type": "r", "opcode": "000000", "funct": "100011"}
+    ,"xor": {"type": "r", "opcode": "000000", "funct": "100110"}
+    ,"sll": {"type": "r", "opcode": "000000", "funct": "000000"}
+    ,"sllv": {"type": "r", "opcode": "000000", "funct": "000100"}
+    ,"sra": {"type": "r", "opcode": "000000", "funct": "000011"}
+    ,"srav": {"type": "r", "opcode": "000000", "funct": "000111"}
+    ,"srl": {"type": "r", "opcode": "000000", "funct": "000010"}
+    ,"srlv": {"type": "r", "opcode": "000000", "funct": "000110"}
+    ,"div": {"type": "r", "opcode": "000000", "funct": "011010"}
+    ,"divu": {"type": "r", "opcode": "000000", "funct": "011011"}
+    ,"mfhi": {"type": "r", "opcode": "000000", "funct": "010000"}
+    ,"mflo": {"type": "r", "opcode": "000000", "funct": "010010"}
+    ,"mthi": {"type": "r", "opcode": "000000", "funct": "010001"}
+    ,"mtlo": {"type": "r", "opcode": "000000", "funct": "010011"}
+    ,"mult": {"type": "r", "opcode": "000000", "funct": "011000"}
+    ,"multu": {"type": "r", "opcode": "000000", "funct": "011001"}
+    ,"break": {"type": "r", "opcode": "000000", "funct": "001101"}
+    ,"jalr": {"type": "r", "opcode": "000000", "funct": "001001"}
+    ,"jr": {"type": "r", "opcode": "000000", "funct": "001000"}
+    ,"syscall": {"type": "r", "opcode": "000000", "funct": "001100"}
+}

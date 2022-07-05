@@ -12,8 +12,9 @@ import LogicGates
 # 000000 00000 00000 0000000000 000000
 
 # initialize for test:
-Memory.InstructionMemory.write_instruction('', 0)
-Memory.InstructionMemory.write_instruction('10001111110110100000000000000000', 4)
+Memory.InstructionMemory.write_instruction('00100000000100000111111111111111', 0)
+Memory.InstructionMemory.write_instruction('10101100000100000000000000000100', 4)
+Memory.InstructionMemory.write_instruction('10010000000100010000000000000100', 8)
 
 
 pc = RegisterFile.Register(32)
@@ -28,8 +29,8 @@ while(True):
     control_unit_signals = MainControlUnit.control_unit(instruction[0:6])
 
     # khondane register haye havi data
-    register_1 = RegisterFile.RegisterFile.read_data(int(instruction[11:16], 2))
-    register_2 = RegisterFile.RegisterFile.read_data(int(instruction[6:11], 2))
+    register_1 = RegisterFile.RegisterFile.read_data(int(instruction[6:11], 2))
+    register_2 = RegisterFile.RegisterFile.read_data(int(instruction[11:16], 2))
 
     # alu control
     alu_control_signals = AluControl.alu_control(instruction[26:], control_unit_signals['alu_op'])
@@ -63,8 +64,8 @@ while(True):
     for i in range(32):
         mem_to_reg_data += str(mux.mux_16x1(int(read_memory_data[i]), int(load_half[i]), int(load_half_unsigned[i]), 0
                                           , int(load_byte[i]), 0, 0, 0, int(load_byte_unsigned[i]), 0, 0, 0, 0, 0, 0, 0
-                                          , str(control_unit_signals['load_half'])+str(control_unit_signals['load_half_unsigned'])
-                                          + str(control_unit_signals['load_byte'])+str(control_unit_signals['load_byte_unsigned'])))
+                                          , str(control_unit_signals['load_byte_unsigned'])+str(control_unit_signals['load_byte'])
+                                          + str(control_unit_signals['load_half_unsigned'])+str(control_unit_signals['load_half'])))
     write_data_to_register = ''
     for i in range(32):
         write_data_to_register += str(mux.mux_2x1(int(alu_result[0][i]), int(mem_to_reg_data[i]), int(control_unit_signals['mem_to_reg'][1])))
