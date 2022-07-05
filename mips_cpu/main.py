@@ -44,7 +44,7 @@ while(True):
                                          , LogicGates.And(LogicGates.Not(alu_control_signals[0]), alu_control_signals[1]
                                                         , alu_control_signals[2], alu_control_signals[1]))
     read_data_1 = ''
-    shamt = Extended.sign_extended_16_32(instruction[21:28])
+    shamt = 27*'0' + instruction[21:26]
     for i in range(32):
         read_data_1 += str(mux.mux_2x1(int(register_1[i]), int(shamt[i]), signal_for_read_data_1))
     read_data_2 = ''
