@@ -23,9 +23,9 @@ def alu(a : str, b : str, selector : str) -> tuple[str, int]:
     # ------------------------------------
     set_less_then_unsigned = 31*'0'+str(comparator.comparator_32_bit_unsigned(a, b)[0])
     # ------------------------------------
-    shift_right = shiftlogical.shift(b, a)
+    shift_right = shiftlogical.shift_right(b, a)
     # ------------------------------------
-    shift_left = shiftlogical.shift(b, a, 0)
+    shift_left = shiftlogical.shift_left(b, a)
     # ------------------------------------
     nor = ''
     for i in range(32):

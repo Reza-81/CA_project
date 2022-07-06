@@ -19,7 +19,7 @@ Memory.InstructionMemory.write_instruction('10010000000100010000000000000100', 8
 
 pc = RegisterFile.Register(32)
 
-while(True):
+for _ in range(100):
     # gereftane instruction
     instruction = Memory.InstructionMemory.read_instruction(int(pc.read_data(), 2))
     if instruction == 32*'0':
@@ -92,9 +92,9 @@ while(True):
 
     # update pc
     pc_next = adder.adder_subtractor_32_bit(pc.read_data(), '00000000000000000000000000000100')[0]
-    j_target = shiftlogical.shift(6*'0'+instruction[6:], '00000000000000000000000000000010', 0)
+    j_target = shiftlogical.shift_left(6*'0'+instruction[6:], '00000000000000000000000000000010')
     j_target = pc_next[:4] + j_target[4:]
-    sign_extended_immediate = shiftlogical.shift(sign_extended_immediate, '00000000000000000000000000000010', 0)
+    sign_extended_immediate = shiftlogical.shift_left(sign_extended_immediate, '00000000000000000000000000000010')
     selector_jr = LogicGates.And(int(alu_control_signals[0]), LogicGates.Not(int(alu_control_signals[1]))
                                , LogicGates.Not(int(alu_control_signals[2])), int(alu_control_signals[3]))
     pc_next_or_jr = ''
@@ -113,8 +113,6 @@ while(True):
         pc_next_or_jump += str(mux.mux_2x1(int(pc_next[i]), int(j_target[i]), control_unit_signals['jump']))
     pc_next = pc_next_or_jump
     pc.write_data(pc_next)
-    if int(pc.read_data(), 2) > 100:
-        break
 
 print('finihsed :)')
 data_memory = Memory.DataMemory.memory()
