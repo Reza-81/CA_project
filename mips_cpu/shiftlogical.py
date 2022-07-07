@@ -1,4 +1,4 @@
-import Dlatch
+from mips_cpu import Dlatch
 
 def shift_right(a : str, b : str) -> str:
     b = int(b[-5:], 2)

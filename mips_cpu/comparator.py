@@ -1,6 +1,6 @@
-import LogicGates
-import adder
-import mux
+from mips_cpu import LogicGates
+from mips_cpu import adder
+from mips_cpu import mux
 
 def twos_complement(a : str) -> str:
     temp = ''

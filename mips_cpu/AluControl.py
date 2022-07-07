@@ -1,5 +1,5 @@
-import LogicGates
-import mux
+from mips_cpu import LogicGates
+from mips_cpu import mux
 
 
 def alu_control(funct_code : str, alu_op : str) -> str:

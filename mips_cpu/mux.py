@@ -1,4 +1,4 @@
-import LogicGates
+from mips_cpu import LogicGates
 
 def mux_2x1(a : int, b : int, selector : int) -> int:
     return LogicGates.Or(LogicGates.And(b, selector), LogicGates.And(a, LogicGates.Not(selector)))

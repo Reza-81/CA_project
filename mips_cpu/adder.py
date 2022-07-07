@@ -1,4 +1,4 @@
-import LogicGates
+from mips_cpu import LogicGates
 
 
 def adder(a : int, b : int, carry_in : int) -> tuple[int, int]:

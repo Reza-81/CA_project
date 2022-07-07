@@ -1,4 +1,4 @@
-import LogicGates
+from mips_cpu import LogicGates
 
 
 class SRlatch():

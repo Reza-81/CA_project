@@ -1,19 +1,19 @@
-import adder
-import mux
-import shiftlogical
-import LogicGates
-import comparator
+from mips_cpu import adder
+from mips_cpu import mux
+from mips_cpu import shiftlogical
+from mips_cpu import LogicGates
+from mips_cpu import comparator
 
 
 def alu(a : str, b : str, selector : str) -> tuple[str, int]:
 
     And = ''
     for i in range(32):
-        And += str(LogicGates.And(a[i], b[i]))
+        And += str(LogicGates.And(int(a[i]), int(b[i])))
     # ------------------------------------
     Or = ''
     for i in range(32):
-        Or += str(LogicGates.Or(a[i], b[i]))
+        Or += str(LogicGates.Or(int(a[i]), int(b[i])))
     # ------------------------------------
     add = adder.adder_subtractor_32_bit(a, b)[0]
     # ------------------------------------
@@ -29,7 +29,7 @@ def alu(a : str, b : str, selector : str) -> tuple[str, int]:
     # ------------------------------------
     nor = ''
     for i in range(32):
-        nor += str(LogicGates.Not(Or[i]))
+        nor += str(LogicGates.Not(int(Or[i])))
     # ------------------------------------
     zero = LogicGates.Not(LogicGates.Or(*(map(int, subtract))))
     # ------------------------------------
@@ -41,4 +41,4 @@ def alu(a : str, b : str, selector : str) -> tuple[str, int]:
 
     return (result, zero)
 
-# print(alu('10000000000000000000000000000001', '10000000000000000000000000000001', '0010'))
+# print(alu('10000000000000000000010110111010', '10000000000000000000000001000101', '0000'))
