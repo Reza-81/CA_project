@@ -12,12 +12,12 @@ from mips_cpu import LogicGates
 def run():
     pc = RegisterFile.Register(32)
 
-    for index in range(100):
+    for counter in range(100):
         # gereftane instruction
         instruction = Memory.InstructionMemory.read_instruction(int(pc.read_data(), 2))
         if instruction == 32*'0':
             break
-        print('pc:', int(pc.read_data(), 2)//4 + 1, '     index:', index + 1)
+        print('instruction:', int(pc.read_data(), 2)//4 + 1, '     counter:', counter + 1)
         
         # sakhte signal haye control unit
         control_unit_signals = MainControlUnit.control_unit(instruction[0:6])
