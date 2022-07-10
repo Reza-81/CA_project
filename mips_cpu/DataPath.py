@@ -12,7 +12,8 @@ from mips_cpu import LogicGates
 def run():
     pc = RegisterFile.Register(32)
 
-    for counter in range(100):
+    counter = 0
+    while(True):
         # gereftane instruction
         instruction = Memory.InstructionMemory.read_instruction(int(pc.read_data(), 2))
         if instruction == 32*'0':
@@ -79,7 +80,7 @@ def run():
             data_to_reg += str(mux.mux_2x1(int(write_data_to_register[i]), int(return_address[i]), control_unit_signals['jump_and_link']))
         destination_register_number = ''
         for i in range(5):
-            destination_register_number += str(mux.mux_4x1(int(instruction[11:16][i]), int(instruction[16:21][i]), 1, 0
+            destination_register_number += str(mux.mux_4x1(int(instruction[11:16][i]), int(instruction[16:21][i]), 0, 1
                                                         , str(control_unit_signals['jump_and_link'])+str(control_unit_signals['reg_dst'])))
         if control_unit_signals['reg_write']:
             RegisterFile.RegisterFile.write_data(data_to_reg, int(destination_register_number, 2))
@@ -107,5 +108,6 @@ def run():
             pc_next_or_jump += str(mux.mux_2x1(int(pc_next[i]), int(j_target[i]), control_unit_signals['jump']))
         pc_next = pc_next_or_jump
         pc.write_data(pc_next)
+        counter += 1
 
     print('finihsed :)')

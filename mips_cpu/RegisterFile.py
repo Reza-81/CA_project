@@ -20,9 +20,10 @@ class RegisterFile():
     
     @classmethod
     def write_data(cls, data, register_number):
-        for register in RegisterFile.__register_list:
-            if register.number() == register_number:
-                register.write_data(data)
+        if register_number != 0:
+            for register in RegisterFile.__register_list:
+                if register.number() == register_number:
+                    register.write_data(data)
     
     @classmethod
     def read_data(cls, register_number):
