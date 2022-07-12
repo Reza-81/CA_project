@@ -110,4 +110,4 @@ def run():
         pc.write_data(pc_next)
         counter += 1
 
-    print('finihsed :)')
+    print('finished :)')

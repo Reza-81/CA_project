@@ -13,30 +13,6 @@ def alu_control(funct_code : str, alu_op : str) -> str:
     # shift left -> 0111
     # nor -> 1000
     # ----------------------------------------------------------
-    # add -> add -> R
-    # jr -> None
-    # addi -> add
-    # and -> and -> R
-    # andi -> and
-    # beq -> compare
-    # bne -> compare
-    # lbu -> add
-    # lhu -> add
-    # lh -> add
-    # lb -> add
-    # lw -> add
-    # nor -> nor -> R
-    # or -> or -> R
-    # ori -> or
-    # slt -> set_less_than -> R
-    # sltu -> set_less_than_unsigned -> R
-    # sll -> shift left logical -> R
-    # sll -> shift right logical -> R
-    # sb -> add
-    # sh -> add
-    # sw -> add
-    # sub -> subtract -> R
-    # ---------------------------------------------------------- ghanona
     # alu_op:(110 nabashe)
         # 000 -> add
         # 010 -> and                                           ===> mishe avale ina ye 111 ezafe kard
