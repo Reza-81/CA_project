@@ -13,5 +13,3 @@ def adder_subtractor_32_bit(a : str, b : str, subtract : int = 0) -> tuple[str, 
         sum, carry_out = adder(int(a[i]), LogicGates.Xor(int(b[i]), subtract), carry_out)
         result = str(sum) + result
     return (result, carry_out)
-
-# print(adder_subtractor_32_bit('00000000000000000000000000000000', '00000000000000000000000000000000', 1))
