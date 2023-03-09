@@ -74,6 +74,3 @@ def comparator_32_bit_signed(a : str, b : str) -> tuple[int, int, int]:
     result_3[1] = mux.mux_2x1(result_1[1], result_2[1], LogicGates.Xor(int(a[0]), int(b[0])))
     result_3[2] = mux.mux_2x1(result_1[2], result_2[2], LogicGates.Xor(int(a[0]), int(b[0])))
     return tuple(result_3)
-
-
-# print(comparator_32_bit_signed('11000000000000000000000010000000', '01000000000000000000000010000000'))
