@@ -3,51 +3,6 @@ from mips_cpu import mux
 
 
 def alu_control(funct_code : str, alu_op : str) -> str:
-    # and -> 0000
-    # or -> 0001
-    # add -> 0010
-    # subtract -> 0011
-    # set less than -> 0100
-    # set less than u -> 0101
-    # shift right -> 0110
-    # shift left -> 0111
-    # nor -> 1000
-    # ----------------------------------------------------------
-    # alu_op:(110 nabashe)
-        # 000 -> add
-        # 010 -> and                                           ===> mishe avale ina ye 111 ezafe kard
-        # 001 -> compare_equal -> subtract (bit Zero)
-        # 011 -> or
-        # 101 -> set_less_than
-    # alu_op:(110 bashe)
-        # 100000 -> add
-        # 100001 -> add
-        # 100100 -> and
-        # 100111 -> nor
-        # 100101 -> or
-        # 101010 -> set_less_than
-        # 101011 -> set_less_than_unsigen
-        # 100010 -> subtract
-        # 000000 -> shift_left_logical
-        # 000010 -> shift_right_logical
-        # 001000 -> jump_register -> lazem nist bere to alu -> kodesh ham 1001
-    # ----------------------------------------------------------
-    # 111000 -> 0010
-    # 111010 -> 0000
-    # 111001 -> xxxx
-    # 111011 -> 0001
-    # 111101 -> 0100
-    # 100000 -> 0010
-    # 100001 -> 0010
-    # 100100 -> 0000
-    # 100111 -> 1000
-    # 100101 -> 0001
-    # 101010 -> 0100
-    # 101011 -> 0101
-    # 100010 -> 0011
-    # 000000 -> 0111
-    # 000010 -> 0110
-    # 001000 -> 1001
     selector = LogicGates.And(int(alu_op[0]), int(alu_op[1]), LogicGates.Not(int(alu_op[2])))
     signal_1 = '111'+alu_op
     signal_2 = funct_code
@@ -85,5 +40,3 @@ def alu_control(funct_code : str, alu_op : str) -> str:
                                              , int(signal[3]), LogicGates.Not(int(signal[4])), int(signal[5])))
 
     return f'{result_bit_3}{result_bit_2}{result_bit_1}{result_bit_0}'
-
-# print(alu_control('100000', '101'))
