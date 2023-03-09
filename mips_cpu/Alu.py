@@ -40,5 +40,3 @@ def alu(a : str, b : str, selector : str) -> tuple[str, int]:
                                 , int(nor[i]), 0, 0, 0, 0, 0, 0, 0, selector))
 
     return (result, zero)
-
-# print(alu('10000000000000000000010110111010', '10000000000000000000000001000101', '0000'))
