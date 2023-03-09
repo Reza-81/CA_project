@@ -125,5 +125,3 @@ def control_unit(opcode : str) -> dict[int, int, int, int, str, int, str, int, s
           , 'load_byte_unsigned': load_byte_unsigned
           , 'store_half': store_half
           , 'store_byte': store_byte}
-
-# print(control_unit('100100'))
