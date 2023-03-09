@@ -35,7 +35,3 @@ def shift_left(a : str, b : str) -> str:
     for i in list_d_latch:
         result += str(i.run()[0])
     return result
-
-
-# print(shift_right('00101000000000000000000000000011', '00000000000000000000000000000010'))
-# print(shift_left('00101000000000000000000000000011', '00000000000000000000000000000010'))
